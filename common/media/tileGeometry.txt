@@ -1,0 +1,209 @@
+tileGeometry
+{
+	VERSION = 2,
+
+	tileset
+	{
+		name = treestumps,
+
+		/* treestumps_0 */
+		tile
+		{
+			xy = 0x0,
+
+			cylinder
+			{
+				translate = 1042x745x1067,
+				rotate = 2700000x0x0,
+				radius1 = 366,
+				radius2 = 366,
+				height = 1463,
+			}
+		}
+
+		/* treestumps_1 */
+		tile
+		{
+			xy = 1x0,
+
+			cylinder
+			{
+				translate = -19x479x0,
+				rotate = 2700000x0x0,
+				radius1 = 614,
+				radius2 = 614,
+				height = 958,
+			}
+		}
+
+		/* treestumps_2 */
+		tile
+		{
+			xy = 2x0,
+
+			cylinder
+			{
+				translate = -682x1354x201,
+				rotate = 2700000x0x0,
+				radius1 = 1302,
+				radius2 = 1302,
+				height = 2696,
+			}
+		}
+
+		/* treestumps_3 */
+		tile
+		{
+			xy = 3x0,
+
+			cylinder
+			{
+				translate = -697x433x0,
+				rotate = 2700000x0x0,
+				radius1 = 1141,
+				radius2 = 1141,
+				height = 825,
+			}
+		}
+
+		/* treestumps_4 */
+		tile
+		{
+			xy = 4x0,
+
+			cylinder
+			{
+				translate = 1016x938x830,
+				rotate = 2700000x0x0,
+				radius1 = 746,
+				radius2 = 746,
+				height = 1848,
+			}
+		}
+
+		/* treestumps_5 */
+		tile
+		{
+			xy = 5x0,
+
+			cylinder
+			{
+				translate = 1305x743x1311,
+				rotate = 2700000x0x0,
+				radius1 = 960,
+				radius2 = 960,
+				height = 1485,
+			}
+		}
+
+		/* treestumps_6 */
+		tile
+		{
+			xy = 6x0,
+
+			cylinder
+			{
+				translate = 1263x752x964,
+				rotate = 2700000x0x0,
+				radius1 = 1194,
+				radius2 = 1194,
+				height = 1504,
+			}
+		}
+	}
+
+	tileset
+	{
+		name = jbbw_TreeStumps,
+
+		/* jbbw_TreeStumps_0 */
+		tile
+		{
+			xy = 0x0,
+
+			cylinder
+			{
+				translate = 407x978x-318,
+				rotate = 2700000x0x0,
+				radius1 = 1654,
+				radius2 = 1654,
+				height = 1928,
+			}
+		}
+
+		/* jbbw_TreeStumps_1 */
+		tile
+		{
+			xy = 1x0,
+
+			cylinder
+			{
+				translate = 507x1324x-390,
+				rotate = 2700000x0x0,
+				radius1 = 2377,
+				radius2 = 2377,
+				height = 2613,
+			}
+		}
+
+		/* jbbw_TreeStumps_2 */
+		tile
+		{
+			xy = 2x0,
+
+			cylinder
+			{
+				translate = 453x942x-259,
+				rotate = 2700000x0x0,
+				radius1 = 2377,
+				radius2 = 2377,
+				height = 1884,
+			}
+		}
+
+		/* jbbw_TreeStumps_3 */
+		tile
+		{
+			xy = 3x0,
+
+			cylinder
+			{
+				translate = 184x361x-141,
+				rotate = 2700000x0x0,
+				radius1 = 1377,
+				radius2 = 1377,
+				height = 722,
+			}
+		}
+
+		/* jbbw_TreeStumps_4 */
+		tile
+		{
+			xy = 4x0,
+
+			cylinder
+			{
+				translate = -662x1151x269,
+				rotate = 2700000x0x0,
+				radius1 = 1160,
+				radius2 = 1160,
+				height = 2302,
+			}
+		}
+
+		/* jbbw_TreeStumps_5 */
+		tile
+		{
+			xy = 5x0,
+
+			cylinder
+			{
+				translate = 0x1184x0,
+				rotate = 2700000x0x0,
+				radius1 = 724,
+				radius2 = 724,
+				height = 2314,
+			}
+		}
+	}
+}

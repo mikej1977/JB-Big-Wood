@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animNode x_extends="Dig.xml">
+	<m_Name>JBBW_DigStumpShovel</m_Name>
+	<m_AnimName>Bob_Dig_Shovel</m_AnimName>
+	<m_Conditions>
+		<m_StringValue>JBBW_DigStumpShovel</m_StringValue>
+	</m_Conditions>
+	<m_Events>
+		<m_EventName>DigSound</m_EventName>
+		<m_TimePc>0.35</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+</animNode>
