@@ -20,8 +20,6 @@ function Actions.addOrDropItem(character, item)
         return
     end
 
-    -- print("Overriding Actions.addOrDropItem")
-
     local sq = character:getSquare()
     local dropX, dropY, dropZ = ISTransferAction.GetDropItemOffset(character, sq, item)
     

@@ -88,7 +88,7 @@ module JB_Big_Wood
 
 	item CrossCutSaw
 	{
-		DisplayName = Cross Cut Saw,
+		DisplayName = Tree Saw,
 		DisplayCategory = Tool,
 		Type = Normal,
 		Weight = 2,
@@ -105,7 +105,7 @@ module JB_Big_Wood
 
 	item RipSaw
 	{
-		DisplayName = RipSaw,
+		DisplayName = Rip Saw,
 		DisplayCategory = Tool,
 		Type = Normal,
 		Weight = 1,

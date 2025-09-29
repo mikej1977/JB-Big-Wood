@@ -123,11 +123,28 @@ tileGeometry
 
 			cylinder
 			{
-				translate = 407x978x-318,
+				translate = -70x747x45,
 				rotate = 2700000x0x0,
-				radius1 = 1654,
-				radius2 = 1654,
-				height = 1928,
+				radius1 = 718,
+				radius2 = 718,
+				height = 1466,
+			}
+
+			cylinder
+			{
+				translate = -718x1070x0,
+				rotate = 2700000x0x0,
+				radius1 = 273,
+				radius2 = 273,
+				height = 2140,
+			}
+
+			box
+			{
+				translate = 911x0x152,
+				rotate = 0x0x0,
+				min = -1655x0x-1061,
+				max = 1655x2805x1061,
 			}
 		}
 

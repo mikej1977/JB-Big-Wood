@@ -12,10 +12,13 @@ local function handleLogItem(item, chr, sq, treeKey, treeDisplayName)
     local itemTreeSpecies = item .. "_" .. treeKey
     local realTree = instanceItem(item)
     realTree:setWorldStaticModel(itemTreeSpecies)
-    --realTree:setName(realTree:getDisplayName() .. " - " .. treeDisplayName)
+
+    if modOptions:getOption("showTreeSpecies"):getValue(1) then
+        realTree:setName(realTree:getDisplayName() .. " - " .. treeDisplayName) -- maybe this will matter in the future? 
+    end
+    
     local modData = realTree:getModData()
     modData.treeKey = treeKey
-    print(modData.treeKey)
     sq:AddWorldInventoryItem(realTree, 0, 0, 0)
     local spinny = chr:getDirectionAngle() + 90 + randy:random(-15, 15)
     realTree:setWorldZRotation(spinny)
@@ -177,8 +180,6 @@ function IsoTree_WeaponHit.PatchClass(original_function)
         self:reset()
     end
 end
-
---IsoTree_WeaponHit.GetClass()
 
 Events.OnGameStart.Add(IsoTree_WeaponHit.GetClass)
 

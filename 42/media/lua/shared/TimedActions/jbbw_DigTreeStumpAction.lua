@@ -2,7 +2,7 @@ require "jbbw_ModOptions"
 require "jbbw_Utils"
 require "jbbw_DataTables"
 
----@class JBDigTreeStumpAction : ISBaseTimedAction
+---@class JBDigTreeStump : ISBaseTimedAction
 ---@field playerObj IsoPlayer
 ---@field stump IsoObject
 ---@field objectType string?
@@ -10,10 +10,10 @@ require "jbbw_DataTables"
 ---@field spriteFrame number
 ---@field caloriesModifier number
 ---@field forceProgressBar boolean
-JBDigTreeStumpAction = ISBaseTimedAction:derive("JBDigTreeStumpAction")
+JBDigTreeStump = ISBaseTimedAction:derive("JBDigTreeStump")
 
 ---@return boolean
-function JBDigTreeStumpAction:isValid()
+function JBDigTreeStump:isValid()
     if ISBuildMenu.cheat then return true end
     local diggingTool = self.playerObj:getInventory():getFirstEvalRecurse(JB_Big_Wood.utils.predicateDiggingTool)
     if not diggingTool then return false end
@@ -24,7 +24,7 @@ function JBDigTreeStumpAction:isValid()
 end
 
 ---@return boolean
-function JBDigTreeStumpAction:waitToStart()
+function JBDigTreeStump:waitToStart()
     local primary = self.playerObj:getPrimaryHandItem()
     local secondary = self.playerObj:getSecondaryHandItem()
     local bothSame = primary and secondary and primary == secondary
@@ -41,17 +41,17 @@ function JBDigTreeStumpAction:waitToStart()
 
 end
 
-function JBDigTreeStumpAction:update()
+function JBDigTreeStump:update()
     self.playerObj:faceThisObject(self.stump)
     self.spriteFrame = self.playerObj:getSpriteDef():getFrame()
     self.playerObj:setMetabolicTarget(Metabolics.HeavyWork)
 end
 
-function JBDigTreeStumpAction:stop()
+function JBDigTreeStump:stop()
     ISBaseTimedAction.stop(self)
 end
 
-function JBDigTreeStumpAction:perform()
+function JBDigTreeStump:perform()
     if self.stump == nil then return end
 
     if self.objectType then
@@ -78,7 +78,7 @@ end
 
 ---@param event string
 ---@param parameter string
-function JBDigTreeStumpAction:animEvent(event, parameter)
+function JBDigTreeStump:animEvent(event, parameter)
     if event == "PlayHitSound" and self.diggingTool then
         self.playerObj:playSound(self.diggingTool:getDoorHitSound())
     end
@@ -90,7 +90,7 @@ function JBDigTreeStumpAction:animEvent(event, parameter)
     end
 end
 
-function JBDigTreeStumpAction:start()
+function JBDigTreeStump:start()
     if self.stump == nil then return end
 
     if not self.diggingTool then
@@ -101,7 +101,7 @@ function JBDigTreeStumpAction:start()
         if self.diggingTool:hasTag("Shovel") or JB_Big_Wood.data.shovels[self.diggingTool:getType()] then
             self:setActionAnim("JBBW_DigStumpShovel")
         else
-            self:setActionAnim("DigStumpPickAxe")
+            self:setActionAnim("JBBW_DigStumpPickAxe")
         end
     end
 
@@ -110,9 +110,9 @@ end
 
 ---@param character IsoPlayer
 ---@param stump IsoObject
----@return JBDigTreeStumpAction
-function JBDigTreeStumpAction:new(character, stump)
-    local o = ISBaseTimedAction.new(self, character) ---@type JBDigTreeStumpAction
+---@return JBDigTreeStump
+function JBDigTreeStump:new(character, stump)
+    local o = ISBaseTimedAction.new(self, character) ---@type JBDigTreeStump
     o.playerObj = character
     o.stump = stump
     local props = stump:getSprite():getProperties()

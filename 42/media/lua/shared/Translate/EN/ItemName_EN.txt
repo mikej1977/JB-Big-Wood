@@ -5,5 +5,5 @@ ItemName_EN = {
     ItemName_JB_Big_Wood.VeryLargeLog = "Very Large Log",
     ItemName_JB_Big_Wood.SawHorses = "Saw Horses",
     ItemName_JB_Big_Wood.RipSaw = "Rip Saw",
-    ItemName_JB_Big_Wood.CrossCutSaw = "Cross Cut Saw",
+    ItemName_JB_Big_Wood.CrossCutSaw = "Tree Saw",
 }

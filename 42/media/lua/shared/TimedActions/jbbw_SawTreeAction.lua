@@ -25,9 +25,7 @@ function JBSawTreeAction:waitToStart()
 end
 
 function JBSawTreeAction:animEvent(event, parameter)
-    --print(event)
     if not isClient() then
-        --if event == 'ChopTree' and self.axe then
         if event == 'SawTree' and self.axe then
             self.tree:WeaponHit(self.character, self.axe)
             local modifier = 1

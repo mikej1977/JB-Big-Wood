@@ -1,4 +1,3 @@
--- foraging for wood
 
 require "Foraging/forageDefinitions"
 require "Foraging/forageSystem"

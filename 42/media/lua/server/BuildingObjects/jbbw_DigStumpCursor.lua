@@ -4,8 +4,6 @@ require "jbbw_ModOptions"
 require "jbbw_Utils"
 require "jbbw_DataTables"
 
----@param square IsoGridSquare | nil
----@return IsoObject | nil
 local function getStump(square)
     if not square then return nil end
     for i = 0, square:getObjects():size() - 1 do
@@ -18,24 +16,12 @@ local function getStump(square)
     return nil
 end
 
----@param square IsoGridSquare | nil
----@return boolean
 local function hasStump(square)
     return getStump(square) ~= nil
 end
 
----@class JBDigStumpCursor : ISBuildingObject
----@field character IsoPlayer
----@field player number
----@field noNeedHammer boolean
----@field skipBuildAction boolean
----@field lastStump IsoObject | nil
 JBDigStumpCursor = ISBuildingObject:derive("JBDigStumpCursor")
 
----@param sprite string
----@param northSprite string
----@param playerObj IsoPlayer
----@return JBDigStumpCursor
 function JBDigStumpCursor:new(sprite, northSprite, playerObj)
     local o = setmetatable({}, self)
     self.__index = self
@@ -49,17 +35,10 @@ function JBDigStumpCursor:new(sprite, northSprite, playerObj)
     return o
 end
 
----@param square IsoGridSquare
----@return boolean
 function JBDigStumpCursor:isValid(square)
     return hasStump(square)
 end
 
----@param x number
----@param y number
----@param z number
----@param north boolean
----@param sprite string
 function JBDigStumpCursor:create(x, y, z, north, sprite)
     local square = getWorld():getCell():getGridSquare(x, y, z)
     local diggingTool = self.character:getInventory():getFirstEvalRecurse(JB_Big_Wood.utils.predicateDiggingTool)
@@ -81,16 +60,12 @@ function JBDigStumpCursor:create(x, y, z, north, sprite)
     walkTo:setOnComplete(function()
         local stump = getStump(square)
         if stump then
-            ISTimedActionQueue.add(JBDigTreeStumpAction:new(self.character, stump))
+            ISTimedActionQueue.add(JBDigTreeStump:new(self.character, stump))
         end
     end)
     ISTimedActionQueue.add(walkTo)
 end
 
----@param x number
----@param y number
----@param z number
----@param square IsoGridSquare
 function JBDigStumpCursor:render(x, y, z, square)
     if self.character:getVehicle() then
         getCell():setDrag(nil, self.player)
@@ -117,7 +92,6 @@ function JBDigStumpCursor:deactivate()
     end
 end
 
----@return string | nil
 function JBDigStumpCursor:getAPrompt()
     return self.canBeBuild and getText("ContextMenu_Remove_Stump") or nil
 end

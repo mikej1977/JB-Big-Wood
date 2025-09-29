@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animNode x_extends="Dig.xml">
-	<m_Name>DigStumpPickAxe</m_Name>
+	<m_Name>JBBW_DigStumpPickAxe</m_Name>
 	<m_AnimName>Bob_Dig_PickAxe</m_AnimName>
 	<m_Conditions>
 		<m_Name>PerformingAction</m_Name>

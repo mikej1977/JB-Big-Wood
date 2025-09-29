@@ -18,9 +18,14 @@ local function JB_Big_Wood_ModOptions()
     options:addSeparator()
 
     config.checkBox = options:addTickBox("spawnStumps", getText("IGUI_ModOptions_JBBigWood_spawnStumps"), true)
+    config.checkBox = options:addTickBox("showTreeSpecies", getText("IGUI_ModOptions_JBBigWood_showTreeSpecies"), false)
     options:addSeparator()
     config.checkBox = options:addTickBox("Enable_Crafting_Submenu", getText("IGUI_ModOptions_JBBigWood_Enable_Crafting_Submenu"), true)
     config.checkBox = options:addTickBox("Fuck_isUnstableScriptNameSpam", getText("IGUI_ModOptions_JBBigWood_Fuck_isUnstableScriptNameSpam"), true)
+
+    function options.apply(self)
+        triggerEvent("OnContainerUpdate")
+    end
 
 end
 
