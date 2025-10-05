@@ -11,16 +11,48 @@ local function getStump(square)
         local sprite = obj:getSprite()
         if sprite then
             local props = sprite:getProperties()
-            if props and props:Is("CustomName") and props:Val("CustomName") == "Small Stump" then
+            local name = props and props:Is("CustomName") and props:Val("CustomName")
+            if name and name:match("Stump") then
                 return obj
             end
         end
     end
-    return nil
 end
 
 local function hasStump(square)
     return getStump(square) ~= nil
+end
+
+local function ensureDiggingToolEquipped(cursor, diggingTool)
+    local primary = cursor.character:getPrimaryHandItem()
+    local secondary = cursor.character:getSecondaryHandItem()
+    local bothSame = primary and secondary and primary == secondary
+
+    local isPrimary = primary and JB_Big_Wood.utils.predicateDiggingTool(primary)
+    local isSecondary = secondary and JB_Big_Wood.utils.predicateDiggingTool(secondary)
+
+    if not isPrimary and not isSecondary then
+        if diggingTool then
+            ISWorldObjectContextMenu.transferIfNeeded(cursor.character, diggingTool)
+            ISTimedActionQueue.add(ISEquipWeaponAction:new(cursor.character, diggingTool, 50, true, true))
+        end
+    elseif not bothSame then
+        local tool = isPrimary and primary or (isSecondary and secondary)
+        if tool then
+            ISTimedActionQueue.add(ISEquipWeaponAction:new(cursor.character, tool, 50, true, true))
+        end
+    end
+end
+
+local function clearHighlights(cursor)
+    for _, stump in ipairs(cursor.highlightedStumps) do
+        stump:setOutlineHighlight(cursor.player, false)
+    end
+    cursor.highlightedStumps = {}
+    if cursor.lastStump then
+        cursor.lastStump:setOutlineHighlight(cursor.player, false)
+        cursor.lastStump = nil
+    end
 end
 
 JBDigStumpCursor = ISBuildingObject:derive("JBDigStumpCursor")
@@ -46,32 +78,12 @@ function JBDigStumpCursor:isValid(square)
     return hasStump(square)
 end
 
-function JBDigStumpCursor:create(x, y, z, north, sprite)
+function JBDigStumpCursor:create(x, y, z)
     local square = getWorld():getCell():getGridSquare(x, y, z)
+    if not square then return end
+
     local diggingTool = self.character:getInventory():getFirstEvalRecurse(JB_Big_Wood.utils.predicateDiggingTool)
-
-    local primary = self.character:getPrimaryHandItem()
-    local secondary = self.character:getSecondaryHandItem()
-    local bothSame = primary and secondary and primary == secondary
-
-    local isPrimaryValidDiggingTool = primary and JB_Big_Wood.utils.predicateDiggingTool(primary)
-    local isSecondaryValidDiggingTool = secondary and JB_Big_Wood.utils.predicateDiggingTool(secondary)
-
-
-    if self.lastStump then
-        self.lastStump:setOutlineHighlight(false)
-    end
-
-    if not isPrimaryValidDiggingTool and not isSecondaryValidDiggingTool then
-        ISWorldObjectContextMenu.transferIfNeeded(self.character, diggingTool)
-        ISTimedActionQueue.add(ISEquipWeaponAction:new(self.character, diggingTool, 50, true, true))
-    elseif not bothSame then
-        if primary and isPrimaryValidDiggingTool then
-            ISTimedActionQueue.add(ISEquipWeaponAction:new(self.character, primary, 50, true, true))
-        elseif secondary and isSecondaryValidDiggingTool then
-            ISTimedActionQueue.add(ISEquipWeaponAction:new(self.character, secondary, 50, true, true))
-        end
-    end
+    ensureDiggingToolEquipped(self, diggingTool)
 
     local walkTo = ISWalkToTimedAction:new(self.character, square, JB_Big_Wood.utils.closeEnough, { pl = self.character, sq = square })
     walkTo:setOnComplete(function()
@@ -84,55 +96,40 @@ function JBDigStumpCursor:create(x, y, z, north, sprite)
 end
 
 function JBDigStumpCursor:render(x, y, z, square)
-
-    for _, s in ipairs(self.highlightedStumps) do
-        s:setOutlineHighlight(self.player, false)
-    end
-    self.highlightedStumps = {}
-
-    if isGamePaused() then return end
-
-    if self.character:getVehicle() then
+    clearHighlights(self)
+    if isGamePaused() or self.character:getVehicle() then
         getCell():setDrag(nil, self.player)
         return
     end
 
-    local zoom   = getCore():getZoom(self.player)
-    local mouseX = getMouseXScaled()
-    local mouseY = getMouseYScaled()
-    local hx, hy = ISCoordConversion.ToWorld(mouseX, mouseY, 0)
-    
-    hx, hy = math.floor(hx), math.floor(hy)
-
-    local iconX  = mouseX + (32 * zoom)
-    local iconY  = mouseY - 15 - (32 * zoom)
-    local iconW  = self.iconWidth + (32 * zoom)
-    local iconH  = self.iconHeight + (32 * zoom)
-
+    local zoom = getCore():getZoom(self.player)
+    local mouseX, mouseY = getMouseXScaled(), getMouseYScaled()
+    local iconX = mouseX + (32 * zoom)
+    local iconY = mouseY - 15 - (32 * zoom)
+    local iconW = self.iconWidth + (32 * zoom)
+    local iconH = self.iconHeight + (32 * zoom)
     UIManager.DrawTexture(self.icon, iconX, iconY, iconW, iconH, 1)
 
+    -- highlight main stump
     local stump = getStump(square)
     if stump then
-        if self.lastStump and self.lastStump ~= stump then
-            self.lastStump:setOutlineHighlight(self.player, false)
-        end
         self.lastStump = stump
         stump:setOutlineHighlight(self.player, true)
         stump:setOutlineHighlightCol(1, 1, 1, 1)
         stump:setHighlighted(true, true)
-    elseif self.lastStump then
-        self.lastStump:setOutlineHighlight(self.player, false)
-        self.lastStump = nil
     end
 
+    -- highlight nearby stumps
+    local hx, hy = ISCoordConversion.ToWorld(mouseX, mouseY, 0)
+    hx, hy = math.floor(hx), math.floor(hy)
     for dx = -4, 4 do
         for dy = -4, 4 do
             local sq = getSquare(hx + dx, hy + dy, 0)
             local nearStump = sq and getStump(sq)
             if nearStump and nearStump ~= stump then
-                local dist = math.sqrt((dx * dx) + (dy * dy))
-                if dist <= 4 then
-                    local alpha = 1 - (dist / 4.0)
+                local dist2 = dx * dx + dy * dy
+                if dist2 <= 16 then
+                    local alpha = 1 - (math.sqrt(dist2) / 4.0)
                     nearStump:setOutlineHighlight(self.player, true)
                     nearStump:setOutlineHighlightCol(0.8, 0.8, 0, alpha)
                     table.insert(self.highlightedStumps, nearStump)
@@ -140,6 +137,10 @@ function JBDigStumpCursor:render(x, y, z, square)
             end
         end
     end
+end
+
+function JBDigStumpCursor:deactivate()
+    clearHighlights(self)
 end
 
 function JBDigStumpCursor:deactivate()
@@ -151,9 +152,5 @@ function JBDigStumpCursor:deactivate()
         self.lastStump:setOutlineHighlight(false)
     end
 end
-
---[[ function JBDigStumpCursor:getAPrompt()
-    return self.canBeBuild and getText("ContextMenu_Remove_Stump") or nil
-end ]]
 
 return JB_Big_Wood

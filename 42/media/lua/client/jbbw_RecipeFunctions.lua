@@ -218,9 +218,10 @@ local function changeRecipes()
 
     }
 
+    local sm = getScriptManager()
     for recipeName, recipeDef in pairs(recipeList) do
 
-        local recipe = getScriptManager():getCraftRecipe(recipeName)
+        local recipe = sm:getCraftRecipe(recipeName)
         if recipe then
             local wrappedScript = "{"
             if recipeDef.inputs then

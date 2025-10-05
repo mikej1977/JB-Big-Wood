@@ -14,12 +14,7 @@
 	</m_Events>
     <m_Events>
 		<m_EventName>PlaySwingSound</m_EventName>
-		<m_TimePc>0.34</m_TimePc>
-		<m_ParameterValue></m_ParameterValue>
-	</m_Events>
-    <m_Events>
-		<m_EventName>PlayerGrunt</m_EventName>
-		<m_TimePc>0.32</m_TimePc>
+		<m_TimePc>0.44</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
 	</m_Events>
 </animNode>

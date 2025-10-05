@@ -25,16 +25,16 @@ local function handleLogItem(item, chr, sq, treeKey, treeDisplayName)
 end
 
 local function getWood(chr, sq, tree)
-
     local treeName = tree:getSprite():getName()
-    local yield = tree:getLogYield() -- LogYield is tree.size -1 so can be 1, 2, 3, 4, 5
-
+    local yield = tree:getLogYield()
     local treeData = JB_Big_Wood.treeDrops[yield]
     if not treeData then return end
+
     local rolledDrops = JB_Big_Wood.utils.rollDrops(treeData.drops)
-    
     local treeKey = JB_Big_Wood.utils.stripSpriteName(treeName)
-    local treeDisplayName = JB_Big_Wood.treeTable[treeKey].displayName
+    local treeEntry = JB_Big_Wood.treeTable[treeKey]
+    --local treeDisplayName = treeEntry and treeEntry.displayName or "Unknown Tree"
+    local treeDisplayName = treeEntry and getText("IGUI_JBBW_" .. treeKey) or "Unknown Tree"
 
     for _, item in ipairs(rolledDrops) do
         if item:match("Log") then
@@ -44,42 +44,36 @@ local function getWood(chr, sq, tree)
         end
     end
 
-    local isWinter = getClimateManager():getSeasonName() == "Winter"
-    local isAutumn = getClimateManager():getSeasonName() == "Autumn"
-    local isSpring = getClimateManager():getSeasonName() == "Spring"
+    local season = getClimateManager():getSeasonName()
+    local isWinter, isAutumn, isSpring = season == "Winter", season == "Autumn", season == "Spring"
 
-    local doAcorns = JB_Big_Wood.utils.isTreeType(treeName, { "oak" }, {
-        "vegetation_trees_01_13", "vegetation_trees_01_14", "vegetation_trees_01_15"
-    })
-
-    local doPinecones = JB_Big_Wood.utils.isTreeType(treeName, { "pine" }, {
-        "vegetation_trees_01_08", "vegetation_trees_01_09",
-        "vegetation_trees_01_010", "vegetation_trees_01_011"
-    })
-
-    local doHollyTree = JB_Big_Wood.utils.isTreeType(treeName, { "holly" }, {
-        "e_americanholly_1_2", "e_americanholly_1_3", "e_americanholly_1_4",
-        "e_americanholly_1_5", "e_americanholly_1_6", "e_americanholly_1_7" 
-    })
-
-    if (isAutumn or isWinter) and doHollyTree then
-        local ruRandy = randy:random(0,3)
-        for i = 0, ruRandy, 1 do
+    if (isAutumn or isWinter) and JB_Big_Wood.utils.isTreeType(treeName, { "holly" }, {
+            "e_americanholly_1_2", "e_americanholly_1_3", "e_americanholly_1_4",
+            "e_americanholly_1_5", "e_americanholly_1_6", "e_americanholly_1_7" }) then
+        for i = 1, randy:random(0, 3) do
             sq:AddWorldInventoryItem("Base.HollyBerry", 0, 0, 0, false)
         end
     end
 
-    if not (isWinter or isSpring) and (doAcorns or doPinecones) then
-        for i = 0, yield - 1 do
+    local seedItem
+    if JB_Big_Wood.utils.isTreeType(treeName, { "oak" }, {
+            "vegetation_trees_01_13", "vegetation_trees_01_14", "vegetation_trees_01_15" }) then
+        seedItem = "Base.Acorn"
+    elseif JB_Big_Wood.utils.isTreeType(treeName, { "pine" }, {
+            "vegetation_trees_01_08", "vegetation_trees_01_09",
+            "vegetation_trees_01_010", "vegetation_trees_01_011" }) then
+        seedItem = "Base.Pinecone"
+    end
+
+    if seedItem and not (isWinter or isSpring) then
+        for i = 1, yield - 1 do
             if randy:random(100) < 25 then
-                local item = doAcorns and "Base.Acorn" or "Base.Pinecone"
-                sq:AddWorldInventoryItem(item, 0, 0, 0, false)
+                sq:AddWorldInventoryItem(seedItem, 0, 0, 0, false)
             end
         end
     end
 
     triggerEvent("OnContainerUpdate")
-
 end
 
 --------------------------------------------------------------------------------
@@ -95,6 +89,7 @@ function IsoTree_WeaponHit.GetClass()
 end
 
 local sawSound = 0
+
 local treeSound = {
     [3] = "JBFallingTreeSmall",
     [4] = "JBFallingTreeMedium",
@@ -112,6 +107,7 @@ function IsoTree_WeaponHit.PatchClass(original_function)
         local emitter = chr:getEmitter()
         local scriptItem = weapon:getScriptItem()
         if not scriptItem then return end
+        local treeHealth = self:getHealth()
         
         --local isAxe = instanceof(weapon, "HandWeapon") and scriptItem:getCategories():contains("Axe")
         local isAxe = instanceof(weapon, "HandWeapon") and scriptItem:containsWeaponCategory("Axe")
@@ -130,17 +126,17 @@ function IsoTree_WeaponHit.PatchClass(original_function)
                 damage = damage * 1.5
             end
 
-            self:setHealth(self:getHealth() - damage)
+            self:setHealth(treeHealth - damage)
+            treeHealth = self:getHealth()
 
-            if self:getHealth() <= damage and self:getHealth() > 0 then
+            if treeHealth <= damage and treeHealth > 0 then
                 if emitter then emitter:playSound("JBTreeCracking") end
             end
 
-            if self:getHealth() > 0 then return end
+            if treeHealth > 0 then return end
 
             sq:transmitRemoveItemFromSquare(self)
 
-            --if emitter then emitter:playSound("JBTreeFalling") end
             if emitter then emitter:playSound(treeSound[self:getSize()]) end
 
             sq:RecalcAllWithNeighbours(true)
@@ -164,13 +160,14 @@ function IsoTree_WeaponHit.PatchClass(original_function)
             sawSound = emitter:playSound("JB_Saw")
         end
 
-        self:setHealth(self:getHealth() - damage)
+        self:setHealth(treeHealth - damage)
+        treeHealth = self:getHealth()
 
-        if self:getHealth() <= damage and self:getHealth() > 0 then
+        if treeHealth <= damage and treeHealth > 0 then
             if emitter then emitter:playSound("JBTreeCracking") end
         end
 
-        if self:getHealth() > 0 then return end
+        if treeHealth > 0 then return end
 
         sq:transmitRemoveItemFromSquare(self)
 

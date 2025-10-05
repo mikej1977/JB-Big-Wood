@@ -22,7 +22,10 @@ local function swapItem(item, replacements)
 
         container:Remove(item)
         local randyLevel = randy:random(#replacements)
-        container:AddItem(replacements[randyLevel])
+        local replItem = container:AddItem(replacements[randyLevel])
+        if not replItem then
+            print("JB_Big_Wood - failed to add replacement item")
+        end
 
         Events.OnTick.Remove(doSwap)
     end

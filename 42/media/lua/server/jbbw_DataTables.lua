@@ -17,6 +17,7 @@ JB_Big_Wood.data = {
     },
 
     ["logTypes"] = {
+        ["Base.Log"] = true,
         ["JB_Big_Wood.LogBolt"] = true,
         ["JB_Big_Wood.SmallLog"] = true,
         ["JB_Big_Wood.LargeLog"] = true,
@@ -113,7 +114,7 @@ JB_Big_Wood.treeTable =
 {
     ["americanholly"] = {
         ["logTexture"] = "jb_log_americanholly",
-        ["displayName"] = "American Holly", -- should be a getText thing or find another way
+        ["displayName"] = "American Holly",
         ["treeStump"] = {
             [3] = "jbbw_TreeStumps_0",
             [4] = "jbbw_TreeStumps_0",

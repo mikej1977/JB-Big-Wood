@@ -20,7 +20,10 @@ function JB_Big_Wood.menuStuff.canSawDownTrees(playerIndex, context, worldObject
     if playerObj:getVehicle() then return end
     local treeSaw = playerInv:getFirstEvalRecurse(JB_Big_Wood.utils.predicateTreeSaw)
 
+    if not worldObjects or not worldObjects[1] then return end
     local sq = worldObjects[1]:getSquare()
+    if not sq then return end
+
     if treeSaw and sq:HasTree() and sq:getTree() then
         if context:getOptionFromName(getText("ContextMenu_Chop_Tree")) then
             context:insertOptionAfter(getText("ContextMenu_Chop_Tree"), getText("ContextMenu_JBBW_SawDownTree"), worldObjects,
@@ -109,26 +112,30 @@ function ISInventoryPaneContextMenu.addNewCraftingDynamicalContextMenu(selectedI
 end
 
 local OG_ISInventoryPane_refreshContainer = ISInventoryPane.refreshContainer
+local itemNameCache = {}
+
 local function getLogDisplayName(item, showSpecies, logTypes, treeTable)
     local fullType = item:getFullType()
     if not logTypes[fullType] then return nil end
 
-    local inst = instanceItem(fullType)
-    local ogName = showSpecies and inst:getName()
-    if not ogName then
-        ogName = showSpecies and inst:getName()
+    local inst = itemNameCache[fullType]
+    if not inst then
+        inst = instanceItem(fullType)
+        itemNameCache[fullType] = inst
     end
 
-    if showSpecies then
-        local treeKey = item:getModData().treeKey
-        local treeDef = treeKey and treeTable[treeKey]
-        if treeDef then
-            local textString = getText("IGUI_JBBW_" .. treeKey)
-            return ogName .. " - " .. textString
-        end
+    local baseName = inst:getName()
+    if not showSpecies then
+        return baseName
     end
 
-    return ogName
+    local treeKey = item:getModData().treeKey
+    local treeDef = treeKey and treeTable[treeKey]
+    if treeDef then
+        return baseName .. " - " .. getText("IGUI_JBBW_" .. treeKey)
+    end
+
+    return baseName
 end
 
 function ISInventoryPane:refreshContainer()
