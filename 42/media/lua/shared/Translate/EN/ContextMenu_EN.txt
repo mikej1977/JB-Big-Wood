@@ -1,4 +1,0 @@
-ContextMenu_EN = {
-    ContextMenu_SawDownTree = "Saw Down Tree",
-    ContextMenu_Chop_Tree = "Chop Down Tree",
-}
