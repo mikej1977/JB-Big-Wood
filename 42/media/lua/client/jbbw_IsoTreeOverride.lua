@@ -77,8 +77,6 @@ local function getWood(chr, sq, tree)
     triggerEvent("OnContainerUpdate")
 end
 
---------------------------------------------------------------------------------
-
 local IsoTree_WeaponHit = {}
 
 function IsoTree_WeaponHit.GetClass()

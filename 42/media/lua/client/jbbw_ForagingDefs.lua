@@ -4,8 +4,6 @@ require "Foraging/forageSystem"
 
 JB_Big_Wood = JB_Big_Wood  or {}
 
---------------------------------------------------------------------------------
-
 local function generateFirewoodDefs()
     local firewood = {
         SmallLog = {

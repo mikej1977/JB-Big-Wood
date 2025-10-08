@@ -9,7 +9,6 @@ require "jbbw_DataTables"
 local modOptions = PZAPI.ModOptions:getOptions("JB_BigWood_ModOptions")
 JB_Big_Wood.defaultTreeKey = "virginiapine"
 
--- Utilities
 local function getRandomTreeKey(treeTable)
     local keys = {}
     for key, _ in pairs(treeTable) do
@@ -44,7 +43,6 @@ local function getLogDisplayName(item, showSpecies, logTypes, treeTable)
     return treeDef and (baseName .. " - " .. getText("IGUI_JBBW_" .. treeKey)) or baseName
 end
 
--- Context Menu: Saw Down Tree
 function JB_Big_Wood.menuStuff.canSawDownTrees(playerIndex, context, worldObjects, test)
     if test then return ISWorldObjectContextMenu.Test or ISWorldObjectContextMenu.setTest() end
 
@@ -64,11 +62,9 @@ function JB_Big_Wood.menuStuff.canSawDownTrees(playerIndex, context, worldObject
         JB_Big_Wood.onSawTree, playerObj, sq:getTree())
 end
 
--- Context Menu: Dig Stump
 function JB_Big_Wood.menuStuff.canDigStump(playerIndex, context, worldObjects, test)
     if test then return ISWorldObjectContextMenu.Test or ISWorldObjectContextMenu.setTest() end
 
-    -- Remove vanilla stump option
     local vanillaStump = getText("ContextMenu_Remove_Stump")
     if context:getOptionFromName(vanillaStump) then
         context:removeOptionByName(vanillaStump)
@@ -78,7 +74,6 @@ function JB_Big_Wood.menuStuff.canDigStump(playerIndex, context, worldObjects, t
     local digTool = playerObj:getInventory():getFirstEvalRecurse(JB_Big_Wood.utils.predicateDiggingTool)
     if not digTool or not worldObjects or not worldObjects[1]:getSquare() then return end
 
-    -- Find stump object
     local treeStump
     for _, obj in ipairs(worldObjects) do
         local sprite = obj:getSprite()
@@ -105,7 +100,6 @@ function JB_Big_Wood.menuStuff.canDigStump(playerIndex, context, worldObjects, t
         worldObjects, digStump, playerObj)
 end
 
--- Crafting Menu Override
 local OG_addNewCraftingDynamicalContextMenu = ISInventoryPaneContextMenu.addNewCraftingDynamicalContextMenu
 function ISInventoryPaneContextMenu.addNewCraftingDynamicalContextMenu(selectedItem, context, recipeList, player,
                                                                        containerList)
@@ -125,7 +119,6 @@ function ISInventoryPaneContextMenu.addNewCraftingDynamicalContextMenu(selectedI
     end
 end
 
--- Inventory Refresh Override
 local OG_ISInventoryPane_refreshContainer = ISInventoryPane.refreshContainer
 function ISInventoryPane:refreshContainer()
     local items = self.inventory:getItems()
@@ -141,7 +134,6 @@ function ISInventoryPane:refreshContainer()
             local modData = item:getModData()
             modData.jbbw = modData.jbbw or {}
             local WSM = item:getWorldStaticModel()
-            print("Refresh - ", WSM)
             item:setWorldStaticModel(WSM)
         end
     end

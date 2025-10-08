@@ -110,7 +110,7 @@ function JBDigStumpCursor:render(x, y, z, square)
     local iconH = self.iconHeight + (32 * zoom)
     UIManager.DrawTexture(self.icon, iconX, iconY, iconW, iconH, 1)
 
-    -- highlight main stump
+    -- highlight the chosen one
     local stump = getStump(square)
     if stump then
         self.lastStump = stump
@@ -119,7 +119,7 @@ function JBDigStumpCursor:render(x, y, z, square)
         stump:setHighlighted(true, true)
     end
 
-    -- highlight nearby stumps
+    -- highlight nearby not chosen ones
     local hx, hy = ISCoordConversion.ToWorld(mouseX, mouseY, 0)
     hx, hy = math.floor(hx), math.floor(hy)
     for dx = -4, 4 do

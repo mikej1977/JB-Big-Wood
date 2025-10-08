@@ -32,47 +32,45 @@ end
 
 local OG_ISChopTreeCursor_render = ISChopTreeCursor.render
 
-if isDebugEnabled() then -- or modoption is true
-    function ISChopTreeCursor:render(x, y, z, square)
-        
-        if self:isValid(square) then
-            local hc = getCore():getGoodHighlitedColor()
-            local sx, sy = ISCoordConversion.ToScreen(x, y, z)
-            local yield = square:getTree():getLogYield()
-            local tree = JB_Big_Wood.treeDrops[yield]
+function ISChopTreeCursor:render(x, y, z, square)
+    
+    if self:isValid(square) then
+        local hc = getCore():getGoodHighlitedColor()
+        local sx, sy = ISCoordConversion.ToScreen(x, y, z)
+        local yield = square:getTree():getLogYield()
+        local tree = JB_Big_Wood.treeDrops[yield]
 
-            if tree then
-                if isDebugEnabled() then
-                    drawDebugInfo(sx + 32, sy - 35, { tree.size, "Possible Drops:" }, hc)
-                    drawDebugInfo(sx + 32, sy - 35 + 2 * FONT_HGT_SMALL,
-                        (function()
-                            local lines = {}
-                            if tree.drops then
-                                if tree.drops.exclusive then
-                                    table.insert(lines, "-- Exclusive --")
-                                    for _, drop in ipairs(tree.drops.exclusive) do
-                                        table.insert(lines, drop.item .. " (" .. math.floor(drop.chance * 100) .. "%)")
-                                    end
-                                end
-                                if tree.drops.normal then
-                                    table.insert(lines, "-- Normal --")
-                                    for _, drop in ipairs(tree.drops.normal) do
-                                        table.insert(lines, drop.item .. " (" .. math.floor(drop.chance * 100) .. "%)")
-                                    end
+        if tree then
+            if isDebugEnabled() then
+                drawDebugInfo(sx + 32, sy - 35, { tree.size, "Possible Drops:" }, hc)
+                drawDebugInfo(sx + 32, sy - 35 + 2 * FONT_HGT_SMALL,
+                    (function()
+                        local lines = {}
+                        if tree.drops then
+                            if tree.drops.exclusive then
+                                table.insert(lines, "-- Exclusive --")
+                                for _, drop in ipairs(tree.drops.exclusive) do
+                                    table.insert(lines, drop.item .. " (" .. math.floor(drop.chance * 100) .. "%)")
                                 end
                             end
-                            return lines
-                        end)(),
-                        hc
-                    )
-                else
-                    drawDebugInfo(sx + 32, sy - 35, { tree.size }, hc)
-                end
+                            if tree.drops.normal then
+                                table.insert(lines, "-- Normal --")
+                                for _, drop in ipairs(tree.drops.normal) do
+                                    table.insert(lines, drop.item .. " (" .. math.floor(drop.chance * 100) .. "%)")
+                                end
+                            end
+                        end
+                        return lines
+                    end)(),
+                    hc
+                )
+            else
+                drawDebugInfo(sx + 32, sy - 35, { tree.size }, hc)
             end
         end
-
-        OG_ISChopTreeCursor_render(self, x, y, z, square)
     end
+
+    OG_ISChopTreeCursor_render(self, x, y, z, square)
 end
 
 function JBSawTreeCursor:new(sprite, northSprite, character)

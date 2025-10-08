@@ -59,7 +59,7 @@ function RecipeCodeOnCreate.createLogStack(craftRecipeData, player)
         for i = 0, craftedItems:size() - 1 do
             local logStackItem = craftedItems:get(i)
             local WSM = logStackItem:getWorldStaticModel() .. "_" .. firstTreeKey
-            print(WSM)
+            --print(WSM)
             logStackItem:setWorldStaticModel(WSM)
 
             local stackModData = logStackItem:getModData()
@@ -74,7 +74,7 @@ end
 local OG_RecipeCodeOnCreate_splitLogStack = RecipeCodeOnCreate.splitLogStack
 
 function RecipeCodeOnCreate.splitLogStack(craftRecipeData, player)
-    print("Overriding RecipeCodeOnCreate.splitLogStack")
+    --print("Overriding RecipeCodeOnCreate.splitLogStack")
 
     local logStackItem = craftRecipeData:getAllConsumedItems():get(0)
     if not logStackItem then return end

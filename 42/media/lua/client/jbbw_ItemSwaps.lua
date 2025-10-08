@@ -14,7 +14,7 @@ local function swapItem(item, replacements)
         if not container then
             tickCount = tickCount + 1
             if tickCount > 5 then
-                print("JB_Big_Wood - swapItem took too long...")
+                --print("JB_Big_Wood - swapItem took too long...")
                 Events.OnTick.Remove(doSwap)
             end
             return
@@ -24,7 +24,7 @@ local function swapItem(item, replacements)
         local randyLevel = randy:random(#replacements)
         local replItem = container:AddItem(replacements[randyLevel])
         if not replItem then
-            print("JB_Big_Wood - failed to add replacement item")
+            --print("JB_Big_Wood - failed to add replacement item")
         end
 
         Events.OnTick.Remove(doSwap)

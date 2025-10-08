@@ -1,4 +1,4 @@
--- JB's Big Wood Tables for 12
+-- JB's Big Wood Tables for 12(OR MORE)
 
 JB_Big_Wood = JB_Big_Wood or {}
 JB_Big_Wood.data = JB_Big_Wood.data or {}

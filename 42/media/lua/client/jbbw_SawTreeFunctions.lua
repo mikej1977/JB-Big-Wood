@@ -21,9 +21,7 @@ function JB_Big_Wood.sawDownTree(playerObj, tree)
         if not saw or not JB_Big_Wood.utils.predicateTreeSaw(saw) then
             saw = playerObj:getInventory():getFirstEvalRecurse(JB_Big_Wood.utils.predicateTreeSaw)
             if not saw then return end
-            --local primary = true
             local twoHands = not playerObj:getSecondaryHandItem()
-            --ISWorldObjectContextMenu.equip(playerObj, playerObj:getPrimaryHandItem(), saw, primary, twoHands)
             ISWorldObjectContextMenu.equip(playerObj, nil, saw, true, twoHands)
         end
         ISTimedActionQueue.add(JBSawTreeAction:new(playerObj:getPlayerNum(), tree))
