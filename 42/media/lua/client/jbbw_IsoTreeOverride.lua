@@ -18,7 +18,8 @@ local function handleLogItem(item, chr, sq, treeKey, treeDisplayName)
     end
     
     local modData = realTree:getModData()
-    modData.treeKey = treeKey
+    modData.jbbw = modData.jbbw or {}
+    modData.jbbw.treeKey = treeKey
     sq:AddWorldInventoryItem(realTree, 0, 0, 0)
     local spinny = chr:getDirectionAngle() + 90 + randy:random(-15, 15)
     realTree:setWorldZRotation(spinny)

@@ -89,4 +89,202 @@ module JB_Big_Wood
 		}
 	}
 
+    model TwoLogsStack2_americanholly {
+    mesh = WorldItems/igot2logs,
+    texture = WorldItems/jb_log_americanholly,
+    scale = 1,
+}
+
+    model TwoLogsStack2_americanlinden {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_americanlinden,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_canadianhemlock {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_canadianhemlock,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_carolinasilverbell {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_carolinasilverbell,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_cockspurhawthorn {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_cockspurhawthorn,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_dogwood {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_dogwood,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_easternredbud {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_easternredbud,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_riverbirch {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_riverbirch,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_virginiapine {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_virginiapine,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_yellowwood {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_yellowwood,
+        scale = 1,
+    }
+
+    model TwoLogsStack2_redmaple {
+        mesh = WorldItems/igot2logs,
+        texture = WorldItems/jb_log_redmaple,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_americanholly {
+    mesh = WorldItems/igot3logs,
+    texture = WorldItems/jb_log_americanholly,
+    scale = 1,
+}
+
+    model ThreeLogsStack2_americanlinden {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_americanlinden,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_canadianhemlock {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_canadianhemlock,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_carolinasilverbell {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_carolinasilverbell,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_cockspurhawthorn {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_cockspurhawthorn,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_dogwood {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_dogwood,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_easternredbud {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_easternredbud,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_riverbirch {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_riverbirch,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_virginiapine {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_virginiapine,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_yellowwood {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_yellowwood,
+        scale = 1,
+    }
+
+    model ThreeLogsStack2_redmaple {
+        mesh = WorldItems/igot3logs,
+        texture = WorldItems/jb_log_redmaple,
+        scale = 1,
+    }
+
+    model FourLogsStack2_americanholly {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_americanholly,
+        scale = 1,
+    }
+
+    model FourLogsStack2_americanlinden {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_americanlinden,
+        scale = 1,
+    }
+
+    model FourLogsStack2_canadianhemlock {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_canadianhemlock,
+        scale = 1,
+    }
+
+    model FourLogsStack2_carolinasilverbell {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_carolinasilverbell,
+        scale = 1,
+    }
+
+    model FourLogsStack2_cockspurhawthorn {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_cockspurhawthorn,
+        scale = 1,
+    }
+
+    model FourLogsStack2_dogwood {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_dogwood,
+        scale = 1,
+    }
+
+    model FourLogsStack2_easternredbud {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_easternredbud,
+        scale = 1,
+    }
+
+    model FourLogsStack2_riverbirch {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_riverbirch,
+        scale = 1,
+    }
+
+    model FourLogsStack2_virginiapine {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_virginiapine,
+        scale = 1,
+    }
+
+    model FourLogsStack2_yellowwood {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_yellowwood,
+        scale = 1,
+    }
+
+    model FourLogsStack2_redmaple {
+        mesh = WorldItems/igot4logs,
+        texture = WorldItems/jb_log_redmaple,
+        scale = 1,
+    }
+
 }

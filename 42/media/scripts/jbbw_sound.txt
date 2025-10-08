@@ -9,25 +9,25 @@ module JB_Big_Wood
     sound JBFallingTreeSmall
     {
         category = TreeFalling, loop = false, is3D = true,
-        clip { file = media/sound/JBFallingTree04.ogg, distanceMax = 8, volume = 8, }
+        clip { file = media/sound/JBFallingTree04.ogg, distanceMax = 8, volume = 5, }
     }
 
     sound JBFallingTreeMedium
     {
         category = TreeFalling, loop = false, is3D = true,
-        clip { file = media/sound/JBFallingTree05.ogg, distanceMax = 12, volume = 9, }
+        clip { file = media/sound/JBFallingTree05.ogg, distanceMax = 12, volume = 5, }
     }
 
     sound JBFallingTreeLarge
     {
         category = TreeFalling, loop = false, is3D = true,
-        clip { file = media/sound/JBFallingTree06.ogg, distanceMax = 18, volume = 10, }
+        clip { file = media/sound/JBFallingTree06.ogg, distanceMax = 18, volume = 5, }
     }
 
     sound JBTreeCracking
     {
         category = TreeFalling, loop = false, is3D = true,
-        clip { file = media/sound/treecrack.ogg, distanceMax = 12, volume = 5, }
+        clip { file = media/sound/treecrack.ogg, distanceMax = 12, volume = 3, }
     }
 
     sound ChopTreeRepeat

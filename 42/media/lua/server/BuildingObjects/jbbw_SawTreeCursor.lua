@@ -32,7 +32,7 @@ end
 
 local OG_ISChopTreeCursor_render = ISChopTreeCursor.render
 
-if not isDebugEnabled() then
+if isDebugEnabled() then -- or modoption is true
     function ISChopTreeCursor:render(x, y, z, square)
         
         if self:isValid(square) then

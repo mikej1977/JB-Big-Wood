@@ -6,7 +6,7 @@ IGUI_EN = {
     IGUI_ModOptions_JBBW_Fuck_isUnstableScriptNameSpam = "Remove 'Item Report' Text From Crafting Name",
     IGUI_ModOptions_JBBW_spawnStumps = "Harvested Trees Leave A Tree Stump",
     IGUI_ModOptions_JBBW_showTreeSpecies = "Separate Logs By Tree Species",
-    IGUI_ModOptions_JBBWTitle = "JB's Big Wood Mod Options",
+    IGUI_ModOptions_JBBW_Title = "JB's Big Wood Mod Options",
     IGUI_ModOptions_JBBW_Desc2 = "Big Logs and Big Saws",
     IGUI_ModOptions_JBBW_Desc3 = "Menu Options",
 

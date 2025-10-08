@@ -3,21 +3,103 @@
 JB_Big_Wood = JB_Big_Wood  or {}
 JB_Big_Wood.Recipes = JB_Big_Wood.Recipes or {}
 JB_Big_Wood.Recipes.MakeLogs = JB_Big_Wood.Recipes.MakeLogs or {}
+JB_Big_Wood.Recipes.MakeLogStack = JB_Big_Wood.Recipes.MakeLogStack or {}
+JB_Big_Wood.Recipes.UnstackLogs = JB_Big_Wood.Recipes.UnstackLogs or {}
 require "jbbw_ModOptions"
 require "jbbw_Utils"
 require "jbbw_DataTables"
 
 function JB_Big_Wood.Recipes.MakeLogs.OnCreate(craftRecipe)
-    local modData = craftRecipe:getAllConsumedItems():get(0):getModData()
-    if not modData then return end
+    local logItem = craftRecipe:getAllConsumedItems():get(0)
+    if not logItem then return end
+
+    local logModData = logItem:getModData()
+    local treeKey = logModData.jbbw and logModData.jbbw.treeKey
+    if not treeKey then return end
+
     local craftedItems = craftRecipe:getAllCreatedItems()
     for i = 0, craftedItems:size() - 1 do
-        if JB_Big_Wood.data.logTypes[craftedItems:get(i):getWorldStaticModel()] then
-            local wsm = craftedItems:get(i):getWorldStaticModel() .. "_" .. modData.treeKey
-            craftedItems:get(i):setWorldStaticModel(wsm)
-            craftedItems:get(i):getModData().treeKey = modData.treeKey
+        local logBoltItem = craftedItems:get(i)
+        local baseWSM = logBoltItem:getWorldStaticModel()
+
+        if JB_Big_Wood.data.logTypes[baseWSM] then
+            local wsm = baseWSM .. "_" .. treeKey
+            logBoltItem:setWorldStaticModel(wsm)
+
+            local stackModData = logBoltItem:getModData()
+            stackModData.jbbw = stackModData.jbbw or {}
+            stackModData.jbbw.treeKey = treeKey
         end
     end
+end
+
+local OG_RecipeCodeOnCreate_createLogStack = RecipeCodeOnCreate.createLogStack
+
+function RecipeCodeOnCreate.createLogStack(craftRecipeData, player)
+    
+    local logs = craftRecipeData:getAllConsumedItems()
+    local treeKeys = {}
+    local firstTreeKey
+
+    for i = 0, logs:size() - 1 do
+        local logItem = logs:get(i)
+        local modData = logItem:getModData()
+
+        if modData and modData.jbbw and modData.jbbw.treeKey then
+            treeKeys[#treeKeys + 1] = modData.jbbw.treeKey
+        end
+
+        if not firstTreeKey then
+            firstTreeKey = treeKeys[1]
+        end
+    end
+
+    if firstTreeKey and #treeKeys > 0 then
+        local craftedItems = craftRecipeData:getAllCreatedItems()
+        for i = 0, craftedItems:size() - 1 do
+            local logStackItem = craftedItems:get(i)
+            local WSM = logStackItem:getWorldStaticModel() .. "_" .. firstTreeKey
+            print(WSM)
+            logStackItem:setWorldStaticModel(WSM)
+
+            local stackModData = logStackItem:getModData()
+            stackModData.jbbw = stackModData.jbbw or {}
+            stackModData.jbbw.treeKeys = treeKeys
+        end
+    end
+
+    return OG_RecipeCodeOnCreate_createLogStack(craftRecipeData, player)
+end
+
+local OG_RecipeCodeOnCreate_splitLogStack = RecipeCodeOnCreate.splitLogStack
+
+function RecipeCodeOnCreate.splitLogStack(craftRecipeData, player)
+    print("Overriding RecipeCodeOnCreate.splitLogStack")
+
+    local logStackItem = craftRecipeData:getAllConsumedItems():get(0)
+    if not logStackItem then return end
+
+    local stackModData = logStackItem:getModData()
+    local treeKeys = stackModData.jbbw and stackModData.jbbw.treeKeys
+    if not treeKeys then return end
+
+    local logs = craftRecipeData:getAllCreatedItems()
+    for i = 0, logs:size() - 1 do
+        local logItem = logs:get(i)
+        local treeKey = treeKeys[i + 1]
+
+        if treeKey then
+            local baseWSM = logItem:getWorldStaticModel()
+            local wsm = baseWSM .. "_" .. treeKey
+            logItem:setWorldStaticModel(wsm)
+
+            local logModData = logItem:getModData()
+            logModData.jbbw = logModData.jbbw or {}
+            logModData.jbbw.treeKey = treeKey
+        end
+    end
+
+    return OG_RecipeCodeOnCreate_splitLogStack(craftRecipeData, player)
 end
 
 --------------------------------------------------------------------------------

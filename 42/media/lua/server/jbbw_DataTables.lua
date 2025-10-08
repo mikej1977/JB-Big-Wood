@@ -186,10 +186,10 @@ JB_Big_Wood.treeTable =
         ["logTexture"] = "jb_log_riverbirch",
         ["displayName"] = "River Birch",
         ["treeStump"] = {
-            [3] = "jbbw_TreeStumps_4",
-            [4] = "jbbw_TreeStumps_4",
-            [5] = "jbbw_TreeStumps_5",
-            [6] = "jbbw_TreeStumps_5"
+            [3] = "d_generic_1_28",
+            [4] = "d_generic_1_28",
+            [5] = "d_generic_1_28",
+            [6] = "d_generic_1_28"
         }
     },
     ["virginiapine"] = {
