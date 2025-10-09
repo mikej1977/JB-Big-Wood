@@ -141,7 +141,6 @@ function IsoTree_WeaponHit.PatchClass(original_function)
 
             sq:RecalcAllWithNeighbours(true)
             getWood(chr, sq, self)
-            print("Want the stumps? ", weWantStumps)
             if weWantStumps and self:getSize() > 2 then
                 JB_Big_Wood.utils.addTreeStumps(sq, self)
             end
@@ -182,7 +181,6 @@ function IsoTree_WeaponHit.PatchClass(original_function)
         sawSound = 0
 
         getWood(chr, sq, self)
-        print("Want the stumps? ", weWantStumps)
         if weWantStumps and self:getSize() > 2 then
             JB_Big_Wood.utils.addTreeStumps(sq, self)
         end
