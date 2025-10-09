@@ -97,6 +97,7 @@ local treeSound = {
 }
 
 function IsoTree_WeaponHit.PatchClass(original_function)
+    local weWantStumps = SandboxVars.JB_Big_Wood.SpawnStumps
     return function(self, chr, weapon)
         if not chr or not weapon then return end
 
@@ -140,9 +141,11 @@ function IsoTree_WeaponHit.PatchClass(original_function)
 
             sq:RecalcAllWithNeighbours(true)
             getWood(chr, sq, self)
-            if modOptions:getOption("spawnStumps"):getValue(1) and self:getSize() > 2 then
+            print("Want the stumps? ", weWantStumps)
+            if weWantStumps and self:getSize() > 2 then
                 JB_Big_Wood.utils.addTreeStumps(sq, self)
             end
+            
             self:reset()
             return
         end
@@ -179,9 +182,11 @@ function IsoTree_WeaponHit.PatchClass(original_function)
         sawSound = 0
 
         getWood(chr, sq, self)
-        if modOptions:getOption("spawnStumps"):getValue(1) and self:getSize() > 2 then
+        print("Want the stumps? ", weWantStumps)
+        if weWantStumps and self:getSize() > 2 then
             JB_Big_Wood.utils.addTreeStumps(sq, self)
         end
+
         self:reset()
     end
 end

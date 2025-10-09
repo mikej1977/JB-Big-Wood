@@ -1,0 +1,9 @@
+VERSION = 1,
+
+option JB_Big_Wood.SpawnStumps
+{
+    type = boolean,
+    default = true,
+    page = JBBW,
+    translation = JB_Big_Wood_SpawnStumps,
+}

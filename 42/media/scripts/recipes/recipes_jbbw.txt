@@ -12,7 +12,7 @@ module JB_Big_Wood {
 		inputs
 		{
 			item 1 [JB_Big_Wood.SmallLog],
-			item 1 tags[SplittingWedge] flags[Prop2] mode:keep flags[IsNotDull;MayDegradeLight],
+			item 1 [Base.OldAxeHead;Base.WoodAxeHead;Base.FireAxeHead] tags[SplittingWedge] flags[Prop2] mode:keep flags[IsNotDull;MayDegradeLight],
 			item 1 tags[ClubHammer;Sledgehammer] flags[Prop1] mode:keep flags[Prop1;MayDegradeLight],
 		}
 		outputs

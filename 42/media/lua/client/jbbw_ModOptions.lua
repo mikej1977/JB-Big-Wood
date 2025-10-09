@@ -17,7 +17,6 @@ local function JB_Big_Wood_ModOptions()
     options:addDescription(desc3)
     options:addSeparator()
 
-    config.checkBox = options:addTickBox("spawnStumps", getText("IGUI_ModOptions_JBBW_spawnStumps"), true)
     config.checkBox = options:addTickBox("showTreeSpecies", getText("IGUI_ModOptions_JBBW_showTreeSpecies"), false)
     local debugInfo = options:addComboBox("showTreeDebugInfo", getText("IGUI_ModOptions_JBBW_showTreeDebugInfo"))
     debugInfo:addItem(getText("IGUI_ModOptions_JBBW_showTreeDebugInfo_option_1"), true)
