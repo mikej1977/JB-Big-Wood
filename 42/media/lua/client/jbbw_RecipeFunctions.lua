@@ -91,6 +91,7 @@ function RecipeCodeOnCreate.splitLogStack(craftRecipeData, player)
         if treeKey then
             local baseWSM = logItem:getWorldStaticModel()
             local wsm = baseWSM .. "_" .. treeKey
+
             logItem:setWorldStaticModel(wsm)
 
             local logModData = logItem:getModData()
@@ -102,7 +103,6 @@ function RecipeCodeOnCreate.splitLogStack(craftRecipeData, player)
     return OG_RecipeCodeOnCreate_splitLogStack(craftRecipeData, player)
 end
 
---------------------------------------------------------------------------------
 -- craftRecipe input/output overrides
 
 local function changeRecipes()

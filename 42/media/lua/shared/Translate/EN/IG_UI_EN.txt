@@ -1,4 +1,5 @@
-IGUI_EN = {
+IGUI_EN = 
+{
     IGUI_CraftingWindow_JBBW_sawhorses = "Saw Horses",
     IGUI_CraftingWindow_JBBW_manuallogsplitter = "Manual Log Splitter",
 
@@ -6,6 +7,10 @@ IGUI_EN = {
     IGUI_ModOptions_JBBW_Fuck_isUnstableScriptNameSpam = "Remove 'Item Report' Text From Crafting Name",
     IGUI_ModOptions_JBBW_spawnStumps = "Harvested Trees Leave A Tree Stump",
     IGUI_ModOptions_JBBW_showTreeSpecies = "Separate Logs By Tree Species",
+    IGUI_ModOptions_JBBW_showTreeDebugInfo = "Show Tree Debug Information",
+    IGUI_ModOptions_JBBW_showTreeDebugInfo_option_1 = "None",
+    IGUI_ModOptions_JBBW_showTreeDebugInfo_option_2 = "Minimal",
+    IGUI_ModOptions_JBBW_showTreeDebugInfo_option_3 = "Full Debug Info",
     IGUI_ModOptions_JBBW_Title = "JB's Big Wood Mod Options",
     IGUI_ModOptions_JBBW_Desc2 = "Big Logs and Big Saws",
     IGUI_ModOptions_JBBW_Desc3 = "Menu Options",

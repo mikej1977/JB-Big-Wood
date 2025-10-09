@@ -13,7 +13,7 @@ local function handleLogItem(item, chr, sq, treeKey, treeDisplayName)
     local realTree = instanceItem(item)
     realTree:setWorldStaticModel(itemTreeSpecies)
 
-    if modOptions:getOption("showTreeSpecies"):getValue(1) then
+    if modOptions and modOptions:getOption("showTreeSpecies"):getValue(1) then
         realTree:setName(realTree:getName() .. " - " .. treeDisplayName)
     end
     

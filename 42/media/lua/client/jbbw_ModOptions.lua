@@ -19,6 +19,12 @@ local function JB_Big_Wood_ModOptions()
 
     config.checkBox = options:addTickBox("spawnStumps", getText("IGUI_ModOptions_JBBW_spawnStumps"), true)
     config.checkBox = options:addTickBox("showTreeSpecies", getText("IGUI_ModOptions_JBBW_showTreeSpecies"), false)
+    local debugInfo = options:addComboBox("showTreeDebugInfo", getText("IGUI_ModOptions_JBBW_showTreeDebugInfo"))
+    debugInfo:addItem(getText("IGUI_ModOptions_JBBW_showTreeDebugInfo_option_1"), true)
+    debugInfo:addItem(getText("IGUI_ModOptions_JBBW_showTreeDebugInfo_option_2"), false)
+    debugInfo:addItem(getText("IGUI_ModOptions_JBBW_showTreeDebugInfo_option_3"), false)
+    config.checkBox = debugInfo
+
     options:addSeparator()
     config.checkBox = options:addTickBox("Enable_Crafting_Submenu", getText("IGUI_ModOptions_JBBW_Enable_Crafting_Submenu"), true)
     config.checkBox = options:addTickBox("Fuck_isUnstableScriptNameSpam", getText("IGUI_ModOptions_JBBW_Fuck_isUnstableScriptNameSpam"), true)
